@@ -6,7 +6,16 @@ import { api } from "~/utils/api";
 const Bookings = () => {
   const { data: sessionData } = useSession();
 
-  const { data: bookings } = api.booking.getUserBookings.useQuery();
+  const { data: bookings, isLoading } = api.booking.getUserBookings.useQuery();
+
+  if (isLoading) {
+    return (
+      <>
+        <div className="mb-4 font-bold">Bookings</div>
+        Loading
+      </>
+    );
+  }
 
   if (!sessionData) {
     return (
